@@ -1,0 +1,734 @@
+/* Globale Scrollbar-Styles wie bei Einträge */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* Für Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+*:hover {
+  scrollbar-color: var(--color-accent) transparent;
+}
+/* Dropdown-Listbox harmonisch im Dark-Style */
+select.input option {
+  background: var(--color-bg-card);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+select.input:focus option:checked,
+select.input option:checked {
+  background: var(--color-accent);
+  color: var(--color-btn-text);
+}
+select.input::-ms-expand {
+  display: none;
+}
+select.input {
+  border-radius: 8px;
+  box-shadow: none;
+}
+/* Scrollbar für Dropdown-Liste (Webkit) */
+select.input option::-webkit-scrollbar {
+  width: 8px;
+  background: var(--color-bg-card);
+}
+select.input option::-webkit-scrollbar-thumb {
+  background: var(--color-accent2);
+  border-radius: 8px;
+}
+/* Dashboard Grundlayout und Theme-Variablen */
+body {
+  --color-bg: #0a0f1a;
+  --color-bg-card: #131a26;
+  --color-accent: #00fff7;
+  --color-accent2: #00bcd4;
+  --color-text: #e0e6ed;
+  --color-text-dim: #b0b8c9;
+  --color-border: #00fff733;
+  --color-shadow: #00fff733;
+  --color-input-bg: #192132;
+  --color-btn-text: #131a26;
+}
+body {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+body.light {
+  --color-bg: #e9ecef;
+  --color-bg-card: #f7f7fa;
+  --color-accent: #1976d2;
+  --color-accent2: #1565c0;
+  --color-text: #23272f;
+  --color-text-dim: #6c7a89;
+  --color-border: #b0b8c966;
+  --color-shadow: #b0b8c933;
+  --color-input-bg: #f0f1f4;
+  --color-btn-text: #fff;
+  --color-btn-hover: #23272f;
+}
+
+/* Auth Layout */
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(0,255,247,0.08), transparent),
+              radial-gradient(1000px 500px at 110% 110%, rgba(0,188,212,0.06), transparent),
+              var(--color-bg);
+  padding: 4vh 3vw;
+}
+.auth-card {
+  width: min(520px, 92vw);
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  box-shadow: 0 10px 40px -10px var(--color-shadow);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+.auth-title {
+  margin: 0 0 0.75rem 0;
+  color: var(--color-accent);
+  font-size: 1.4rem;
+}
+.auth-error {
+  background: rgba(231, 76, 60, 0.12);
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  color: #ffd2cc;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 0.9rem;
+  font-weight: 600;
+}
+.auth-switch {
+  margin-top: 0.6rem;
+  text-align: center;
+}
+.auth-hint {
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+}
+
+/* Shared buttons & links for auth */
+.btn {
+  display: inline-block;
+  width: auto;
+  background: var(--color-accent);
+  color: var(--color-btn-text);
+  border: none;
+  border-radius: 10px;
+  padding: 0.8em 1.1em;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: transform .04s ease, background .2s ease, box-shadow .2s ease;
+  box-shadow: 0 2px 10px 0 var(--color-shadow);
+}
+.btn:hover { background: var(--color-accent2); }
+.btn:active { transform: translateY(1px); }
+.btn.btn-block { width: 100%; }
+
+.link {
+  background: transparent;
+  color: var(--color-accent);
+  border: none;
+  padding: 0.4em 0.6em;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.link:hover { color: var(--color-accent2); text-decoration: none; }
+
+/* Sidebar */
+.dashboard-sidebar {
+  width: 250px;
+  background: var(--color-bg-card) !important;
+  color: var(--color-accent) !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border-right: 1px solid var(--color-border) !important;
+}
+.dashboard-sidebar .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  margin-bottom: 1.5rem;
+}
+.dashboard-sidebar .nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.dashboard-sidebar .nav a {
+  color: var(--color-accent);
+  background: transparent;
+  padding: 0.7em 1.2em;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.dashboard-sidebar .nav a.active, .dashboard-sidebar .nav a:hover {
+  background: var(--color-border);
+}
+.dashboard-sidebar .logout-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 0.7em 1.2em;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: var(--color-btn-text);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.dashboard-sidebar .logout-btn:hover {
+  background: var(--color-accent2);
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 2rem 3vw;
+  background: var(--color-bg) !important;
+  min-height: 100vh;
+}
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: 1fr; /* mobil: einspaltig */
+  gap: 1.25rem; /* kompaktere Abstände */
+  margin: 0 0 1.5rem 0; /* kein extra Außen-Freiraum */
+}
+@media (min-width: 1024px) {
+  .dashboard-cards { grid-template-columns: 1fr 1fr; }
+}
+.dashboard-card {
+  background: var(--color-bg-card) !important;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px 0 var(--color-shadow) !important;
+  padding: 1rem; /* noch kompakter */
+  color: var(--color-text) !important;
+}
+.dashboard-card h2 {
+  color: var(--color-accent) !important;
+  font-size: 1.1rem; /* etwas kleiner */
+  margin-bottom: 0.9rem;
+}
+
+/* Form Styling */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* etwas kompakter */
+}
+.form-row {
+  display: flex;
+  gap: 0.9rem; /* etwas kompakter */
+}
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-group label {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+/* Einheitliche Eingabefeld-Optik für .input, .datepicker-input, select.input */
+/* Einheitliche Eingabefeld-Optik für .input, .datepicker-input, select.input */
+.input,
+.datepicker-input {
+  background: var(--color-input-bg);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: 12px;
+  padding: 0.7em 1em;
+  font-size: 1rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+  min-height: 44px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input:focus,
+.datepicker-input:focus {
+  border: 1.5px solid var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-shadow);
+}
+select.input {
+  padding-right: 2.2em;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--color-bg-card) url('data:image/svg+xml;utf8,<svg fill="%2300fff7" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 1em center/1.2em 1.2em;
+}
+
+/* Heller Hintergrund für select.input (z.B. im Light-Mode oder auf weißem Feld) */
+select.input[style*="background: white"],
+select.input[style*="background: #fff"],
+select.input[style*="background-color: white"],
+select.input[style*="background-color: #fff"] {
+  color: #222;
+}
+select.input[style*="background: white"] option,
+select.input[style*="background: #fff"] option,
+select.input[style*="background-color: white"] option,
+select.input[style*="background-color: #fff"] option {
+  color: #222;
+  background: #fff;
+}
+select.input:focus {
+  border: 1.5px solid var(--color-accent2);
+  box-shadow: 0 0 0 2px var(--color-shadow);
+  outline: none;
+}
+select.input option {
+  background: var(--color-bg-card);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 600;
+}
+select.input option:checked,
+select.input option:focus,
+select.input option:hover {
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 700;
+}
+.btn-primary {
+  background: var(--color-accent) !important;
+  color: var(--color-btn-text) !important;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em; /* kompaktere Buttons */
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 var(--color-shadow) !important;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 0.4rem;
+  align-self: flex-start;
+}
+.btn-primary:hover {
+  background: var(--color-accent2) !important;
+  color: var(--color-btn-hover) !important;
+}
+
+/* Button variants */
+.btn-secondary {
+  background: var(--color-border) !important;
+  color: var(--color-text) !important;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 var(--color-shadow) !important;
+  transition: background 0.2s, color 0.2s, filter 0.2s;
+  margin-top: 0.4rem;
+  align-self: flex-start;
+}
+.btn-secondary:hover { filter: brightness(0.95); }
+
+.btn-danger {
+  background: #e74c3c !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 var(--color-shadow) !important;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 0.4rem;
+  align-self: flex-start;
+}
+.btn-danger:hover { background: #c0392b !important; }
+
+/* space adjacent action buttons a bit */
+button[class*="btn-"] + button[class*="btn-"],
+a[class*="btn-"] + a[class*="btn-"] { margin-left: 0.5rem; }
+
+/* Timer-Styles entfernt */
+
+/* Tabelle */
+.dashboard-table {
+  width: 100%;
+  background: var(--color-bg-card) !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 var(--color-shadow) !important;
+  color: var(--color-text) !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1rem;
+}
+.dashboard-table th, .dashboard-table td {
+  padding: 0.75rem 0.6rem; /* kompaktere Tabellenzeilen */
+  text-align: left;
+}
+.table-scroll-3 {
+  max-height: 12.5rem; /* ~3 Zeilen inkl. Header, je nach Zoom */
+  overflow: auto;
+  border-radius: 12px;
+}
+.table-scroll-3::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.table-scroll-3::-webkit-scrollbar-track {
+  background: transparent;
+}
+.table-scroll-3::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 8px;
+}
+.table-scroll-3:hover::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+}
+.table-scroll-3 .dashboard-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg-card);
+  z-index: 1;
+}
+.dashboard-table th {
+  color: var(--color-accent) !important;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+.dashboard-table tr {
+  transition: background 0.2s;
+}
+.dashboard-table tr:hover {
+  background: var(--color-border) !important;
+}
+.dashboard-table td {
+  border-bottom: 1px solid var(--color-bg-card) !important;
+}
+dashboard-table tr:last-child td {
+  border-bottom: none !important;
+}
+/* Datei-Ende: fehlende schließende Klammer ergänzt */
+
+/* Hervorhebung (Kalender -> Liste) */
+.row-highlight {
+  animation: rowFlash 1.2s ease-in-out 1;
+}
+@keyframes rowFlash {
+  0% { background-color: rgba(0,255,247,0.18); }
+  50% { background-color: rgba(0,255,247,0.32); }
+  100% { background-color: transparent; }
+}
+
+/* Kalender Board */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+.cal-title { font-weight: 700; color: var(--color-accent); }
+.cal-nav { background: var(--color-accent); color: var(--color-btn-text); border: none; border-radius: 8px; padding: 0.2em 0.6em; cursor: pointer; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.cal-weekdays { margin-bottom: 6px; }
+.cal-weekday { text-align: center; color: var(--color-text-dim); font-weight: 600; }
+.cal-cell {
+  position: relative;
+  min-height: 86px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 6px;
+}
+.cal-cell-dim { opacity: 0.5; }
+.cal-daynum { position: absolute; top: 6px; right: 8px; font-size: 0.9rem; color: var(--color-text-dim); background: transparent; border: none; cursor: pointer; }
+.cal-daynum:hover { color: var(--color-accent); }
+.cal-absences { display: flex; flex-direction: column; gap: 4px; margin-top: 18px; }
+.cal-abs { height: 8px; background: linear-gradient(90deg, var(--color-accent), var(--color-accent2)); border-radius: 6px; }
+.cal-abs.start { border-top-left-radius: 6px; border-bottom-left-radius: 6px; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.cal-abs.mid { border-radius: 0; }
+.cal-abs.end { border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.cal-abs.single { border-radius: 6px; }
+.cal-abs.abs-krank { background: #e74c3c; }
+.cal-abs.abs-krank-atest { background: #f39c12; }
+.cal-abs.abs-urlaub { background: #2ecc71; }
+.cal-abs.abs-sonderurlaub { background: #9b59b6; }
+.cal-entries { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.cal-entry { height: 10px; background: var(--color-accent2); border-radius: 4px; }
+.cal-entry.full { width: 100%; }
+.cal-entry.half { width: 48%; background: #0d47a1; }
+.cal-entry, .cal-abs { display: inline-block; width: 22px; margin-right: 6px; }
+.cal-legend { display: flex; gap: 1rem; align-items: center; margin-top: 10px; color: var(--color-text-dim); font-size: 0.9rem; flex-wrap: wrap; }
+.legend-item { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Badges for list */
+.badge { padding: 2px 8px; border-radius: 999px; font-weight: 600; font-size: 0.85em; color: #0b1220; display: inline-block; }
+.badge-blue { background: #2ecc71; color: #0b1220; }
+.badge-red { background: #e74c3c; color: #fff; }
+.badge-orange { background: #f39c12; color: #0b1220; }
+.badge-green { background: #9b59b6; color: #fff; }
+
+/* Datepicker Eingabe-Optik angleichen */
+.datepicker-input { cursor: pointer; width: 100%; }
+/* Dashboard Datepicker Styling */
+.dashboard-datepicker {
+  background: var(--color-bg-card) !important;
+  color: var(--color-text) !important;
+  border-radius: 12px !important;
+  border: 1.5px solid var(--color-border) !important;
+  box-shadow: 0 2px 16px 0 var(--color-shadow) !important;
+  font-family: inherit;
+  font-size: 1rem;
+}
+.dashboard-datepicker .react-datepicker__header {
+  background: var(--color-bg-card) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+.dashboard-datepicker .react-datepicker__current-month,
+.dashboard-datepicker .react-datepicker__day-name {
+  color: var(--color-accent) !important;
+  font-weight: bold;
+}
+.dashboard-datepicker .react-datepicker__day,
+.dashboard-datepicker .react-datepicker__time-list-item {
+  color: var(--color-text) !important;
+  border-radius: 6px !important;
+  transition: background 0.2s;
+}
+.dashboard-datepicker .react-datepicker__day--selected,
+.dashboard-datepicker .react-datepicker__day--keyboard-selected,
+.dashboard-datepicker .react-datepicker__day:hover,
+.dashboard-datepicker .react-datepicker__time-list-item--selected,
+.dashboard-datepicker .react-datepicker__time-list-item:hover {
+  background: var(--color-accent) !important;
+  color: var(--color-btn-text) !important;
+}
+.dashboard-datepicker .react-datepicker__day--today {
+  border-bottom: 2px solid var(--color-accent) !important;
+}
+.dashboard-datepicker .react-datepicker__navigation {
+  top: 12px !important;
+}
+.dashboard-datepicker .react-datepicker__navigation-icon::before {
+  border-color: var(--color-accent) !important;
+}
+.dashboard-datepicker .react-datepicker__time-container {
+  border-left: 1px solid var(--color-border) !important;
+}
+.dashboard-datepicker .react-datepicker__time {
+  background: var(--color-bg-card) !important;
+}
+.dashboard-datepicker .react-datepicker__time-list-item--selected {
+  background: var(--color-accent) !important;
+  color: var(--color-btn-text) !important;
+}
+/* bereits definiert, Duplikate entfernt */
+
+/* Sicherstellen, dass der Kalender über der Tabelle/Leiste liegt */
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
+
+.toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.numeric { text-align: right; font-variant-numeric: tabular-nums; }
+.btn-xs { padding: 0.25em 0.6em; font-size: 0.85em; border-radius: 8px; }
+.action-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.action-card { background: var(--color-bg-card); padding: 0.75rem; border-radius: 12px; box-shadow: 0 2px 12px 0 var(--color-shadow); }
+
+.dashboard-sidebar {
+  width: 250px;
+  background: var(--color-bg-card) !important;
+  color: var(--color-accent) !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border-right: 1px solid var(--color-border) !important;
+}
+.dashboard-sidebar .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  margin-bottom: 1.5rem;
+}
+.dashboard-sidebar .nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.dashboard-sidebar .nav a {
+  color: var(--color-accent);
+  background: transparent;
+  padding: 0.7em 1.2em;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.dashboard-sidebar .nav a.active, .dashboard-sidebar .nav a:hover {
+  background: var(--color-border);
+}
+.dashboard-sidebar .logout-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 0.7em 1.2em;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: var(--color-btn-text);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.dashboard-sidebar .logout-btn:hover {
+  background: var(--color-accent2);
+}
+
+.dashboard-main {
+  flex: 1;
+  padding: 2rem 3vw;
+  background: var(--color-bg) !important;
+  min-height: 100vh;
+}
+/* (alte doppelte Definition entfernt) */
+.dashboard-card {
+  background: var(--color-bg-card) !important;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 var(--color-shadow) !important;
+  padding: 2rem;
+  color: var(--color-text) !important;
+}
+
+/* Form Styling for Dashboard */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* einheitlicher vertikaler Abstand zwischen Reihen */
+}
+.form-row {
+  display: flex;
+  gap: 1.2rem; /* horizontaler Abstand zwischen Feldern in einer Reihe */
+  align-items: flex-start;
+}
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-group label {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+  margin-bottom: 0.35rem; /* konsistenter Label-Abstand */
+}
+.input {
+  background: var(--color-input-bg) !important;
+  border: 1.5px solid var(--color-border) !important;
+  color: var(--color-text) !important;
+  border-radius: 8px;
+  padding: 0.7em 1em;
+  font-size: 1rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+  min-height: 44px; /* gleiche Feldhöhe für Text/Select/Datepicker */
+}
+.input:focus {
+  border: 1.5px solid var(--color-accent) !important;
+  box-shadow: 0 0 0 2px var(--color-shadow) !important;
+}
+.btn-primary {
+  background: var(--color-accent) !important;
+  color: var(--color-btn-text) !important;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7em 1.5em;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 var(--color-shadow) !important;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+.btn-primary:hover {
+  background: var(--color-accent2) !important;
+  color: var(--color-btn-hover) !important;
+}
+.form-actions {
+  margin-top: 0.75rem; /* Abstand zum vorherigen Inhalt */
+  display: flex;
+  gap: 0.5rem;
+}
+.form-actions .btn-primary { margin-top: 0; }
+
+/* Mobil: Felder untereinander anordnen */
+@media (max-width: 640px) {
+  .form-row { flex-direction: column; }
+}
+.dashboard-card h2 {
+  color: var(--color-accent) !important;
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+}
+.dashboard-table {
+  width: 100%;
+  background: var(--color-bg-card) !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 var(--color-shadow) !important;
+  color: var(--color-text) !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1rem;
+}
+.dashboard-table th, .dashboard-table td {
+  padding: 1rem 0.7rem;
+  text-align: left;
+}
+.dashboard-table th {
+  color: var(--color-accent) !important;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+.dashboard-table tr {
+  transition: background 0.2s;
+}
+.dashboard-table tr:hover {
+  background: var(--color-border) !important;
+}
+.dashboard-table td {
+  border-bottom: 1px solid var(--color-bg-card) !important;
+}
+.dashboard-table tr:last-child td {
+  border-bottom: none !important;
+}

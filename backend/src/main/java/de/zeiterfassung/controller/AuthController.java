@@ -1,0 +1,95 @@
+package de.zeiterfassung.controller;
+
+import de.zeiterfassung.model.AppUser;
+import de.zeiterfassung.repository.UserRepository;
+import de.zeiterfassung.security.JwtService;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "*")
+public class AuthController {
+    private final UserRepository users;
+    private final PasswordEncoder encoder;
+    private final JwtService jwt;
+    private final AuthenticationManager authManager;
+
+    public AuthController(UserRepository users, PasswordEncoder encoder, JwtService jwt, AuthenticationManager authManager) {
+        this.users = users; this.encoder = encoder; this.jwt = jwt; this.authManager = authManager;
+    }
+
+    @PostMapping("/register")
+    public Map<String, Object> register(@RequestBody Map<String, String> body) {
+        String username = body.getOrDefault("username", "").trim();
+        String password = body.getOrDefault("password", "");
+        if (username.isEmpty() || password.length() < 4) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ungültige Eingaben");
+        }
+        if (users.existsByUsername(username)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Benutzer existiert bereits");
+        }
+        AppUser u = new AppUser(username, encoder.encode(password), "USER");
+        users.save(u);
+        String token = jwt.createToken(u.getUsername(), u.getRole());
+        return Map.of(
+            "token", token,
+            "username", u.getUsername(),
+            "role", u.getRole(),
+            "user_id", u.getId()
+        );
+    }
+
+    @PostMapping("/login")
+    public Map<String, Object> login(@RequestBody Map<String, String> body) {
+        String username = body.getOrDefault("username", "");
+        String password = body.getOrDefault("password", "");
+        Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        if (!auth.isAuthenticated()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login fehlgeschlagen");
+        }
+        AppUser u = users.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+        String token = jwt.createToken(u.getUsername(), u.getRole());
+        return Map.of(
+            "token", token,
+            "username", u.getUsername(),
+            "role", u.getRole(),
+            "user_id", u.getId()
+        );
+    }
+
+    @GetMapping("/me")
+    public Map<String, Object> me(@RequestHeader(name = "Authorization", required = false) String authz) {
+        if (authz == null || !authz.startsWith("Bearer ")) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        var claims = jwt.parse(authz.substring(7));
+        String username = claims.getSubject();
+        AppUser u = users.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+        return Map.of(
+                "username", u.getUsername(),
+                "role", u.getRole(),
+                "user_id", u.getId(),
+                "imageUrl", u.getImageUrl()
+        );
+    }
+
+    @Bean
+    ApplicationRunner ensureAdmin(UserRepository users, PasswordEncoder encoder) {
+        return args -> {
+            String adminUser = System.getenv().getOrDefault("APP_ADMIN_USER", "admin");
+            String adminPass = System.getenv().getOrDefault("APP_ADMIN_PASS", "admin123");
+            if (!users.existsByUsername(adminUser)) {
+                AppUser admin = new AppUser(adminUser, encoder.encode(adminPass), "ADMIN");
+                users.save(admin);
+            }
+        };
+    }
+}
