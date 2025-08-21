@@ -40,10 +40,7 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.45.3.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
+    <!-- Flyway entfernt -->
         <dependency>
             <groupId>com.github.gwenn</groupId>
             <artifactId>sqlite-dialect</artifactId>
@@ -83,27 +80,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>8.5.13</version>
-                <configuration>
-                    <url>jdbc:sqlite:db/zeiterfassung.db</url>
-                    <driver>org.sqlite.JDBC</driver>
-                    <user></user>
-                    <password></password>
-                    <locations>
-                        <location>filesystem:db/migration</location>
-                    </locations>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.xerial</groupId>
-                        <artifactId>sqlite-jdbc</artifactId>
-                        <version>3.45.3.0</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

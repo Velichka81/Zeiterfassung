@@ -36,13 +36,6 @@ function Invoke-Maven {
   throw "Maven wurde nicht gefunden. Bitte mvn in PATH hinzufügen oder mvnw verwenden."
 }
 
-# Migrationen ausführen (sofern nicht deaktiviert)
-if (-not $NoMigrate) {
-  Write-Host "Flyway Migrationen ausführen..." -ForegroundColor Cyan
-  Push-Location ./backend
-  Invoke-Maven -MvnParams @('-q','flyway:migrate') 
-  Pop-Location
-}
 
 Write-Host "Spring Boot starten (Port 8082)..." -ForegroundColor Green
 Push-Location ./backend
