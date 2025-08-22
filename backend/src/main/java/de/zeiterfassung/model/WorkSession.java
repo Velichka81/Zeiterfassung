@@ -7,11 +7,6 @@ import java.time.LocalDateTime;
 
 @Entity
 public class WorkSession {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id")
-    private Project project;
-    public Project getProject() { return project; }
-    public void setProject(Project project) { this.project = project; }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,7 +37,7 @@ public class WorkSession {
     private LocalDateTime updatedAt;
 
     @Column(name = "status", nullable = false)
-    private String status = "unbestätigt";
+    private String status = "unbest\u00e4tigt";
 
     // Getter/Setter
     public Long getId() { return id; }

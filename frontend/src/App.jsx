@@ -11,7 +11,6 @@ import AbsenceList from "./components/AbsenceList";
 import CalendarBoard from "./components/CalendarBoard";
 import AdminPanel from "./components/AdminPanel";
 import MitarbeiterVerwaltung from "./components/MitarbeiterVerwaltung";
-// Projekte-Feature entfernt
 import Zeitmanagement from "./components/Zeitmanagement";
 import LiveStempeluhr from "./components/LiveStempeluhr";
 import WorkSessionList from "./components/WorkSessionList";
@@ -301,10 +300,9 @@ export default function App() {
           >
             Dashboard
           </a>
-          {/* Projekte-Navigation entfernt */}
-          <a
-            href="#"
-            className={activeNav === 'zeit' ? 'active' : ''}
+<a
+  href="#"
+  className={activeNav === 'zeit' ? 'active' : ''}
             style={activeNav === 'zeit' ? {
               boxShadow: '0 2px 16px 0 var(--color-shadow)',
               color: 'var(--color-accent)',
@@ -624,8 +622,7 @@ export default function App() {
               )}
             </div>
           </div>
-        )}
-  {/* Projekte-Ansicht entfernt */}
+  )}
         {nav === 'zeit' && (
           <Zeitmanagement
             entries={entries}

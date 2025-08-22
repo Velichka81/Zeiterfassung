@@ -371,7 +371,6 @@ export default function WorkSessionList({ auth, isAdmin }) {
             <th style={{color:'var(--color-accent)', position:'sticky', top:0, background:'var(--color-bg-card)', zIndex:1, textAlign:'center', padding:'0.5em'}}>Dauer</th>
             <th style={{color:'var(--color-accent)', position:'sticky', top:0, background:'var(--color-bg-card)', zIndex:1, textAlign:'center', padding:'0.5em'}}>Pause</th>
             <th style={{color:'var(--color-accent)', position:'sticky', top:0, background:'var(--color-bg-card)', zIndex:1, textAlign:'center', padding:'0.5em'}}>Dauer (netto)</th>
-            <th style={{color:'var(--color-accent)', position:'sticky', top:0, background:'var(--color-bg-card)', zIndex:1, textAlign:'center', padding:'0.5em'}}>Projekt</th>
             <th style={{color:'var(--color-accent)', position:'sticky', top:0, background:'var(--color-bg-card)', zIndex:1, textAlign:'center', padding:'0.5em'}}>Erfasst von</th>
             <th style={{color:'var(--color-accent)', position:'sticky', top:0, background:'var(--color-bg-card)', zIndex:1, textAlign:'center', padding:'0.5em'}}>Status</th>
           </tr>
@@ -398,11 +397,6 @@ export default function WorkSessionList({ auth, isAdmin }) {
               const end = new Date(ws.endTime);
               netto = formatDuration(Math.max(0, Math.floor((end-start)/1000) - ws.pauseSeconds));
             }
-            // Projekt
-            const projectCell = (() => {
-              const pid = ws.projectId || (ws.project && ws.project.id);
-              return pid ? `#${pid}` : '-';
-            })();
             // Erfasst von
             const createdBy = ws.createdBy || user?.username || '';
             // Status
@@ -441,7 +435,6 @@ export default function WorkSessionList({ auth, isAdmin }) {
                 <td style={{textAlign:'center'}}>{dauer}</td>
                 <td style={{textAlign:'center'}}>{pause}</td>
                 <td style={{textAlign:'center'}}>{netto}</td>
-                <td style={{textAlign:'center'}}>{projectCell}</td>
                 <td style={{textAlign:'center'}}>{createdBy}</td>
                 <td style={{textAlign:'center'}}>
                   <span style={{

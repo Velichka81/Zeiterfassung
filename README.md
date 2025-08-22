@@ -10,18 +10,16 @@ Dieses Projekt ist ein Fullstack-Zeiterfassungssystem mit Java Spring Boot (Back
 ## Struktur
 - `/backend` – Spring Boot Backend (REST API)
 - `/frontend` – React Frontend
-- `/backend/db/migration` – Flyway-SQL-Migrationen
 
 ## Starten
 Empfohlen: getrennt starten
 
 - Backend (Port 8082):
-	- PowerShell im Projektroot: `./start-backend.ps1`  (Migration + Spring Boot)
-	- Optional ohne Migration: `./start-backend.ps1 -NoMigrate`
+	- PowerShell im Projektroot: `./start-backend.ps1`
 - Frontend (Port 5173):
 	- PowerShell im Projektroot: `./start-frontend.ps1`
 
-Hinweis: Start beider Dienste erfolgt getrennt über `start-backend.ps1` und `start-frontend.ps1`.
+Hinweis: Die Datenbank wird beim Start des Backends via `schema.sql` initialisiert. Start beider Dienste erfolgt getrennt über `start-backend.ps1` und `start-frontend.ps1`.
 
 ---
 

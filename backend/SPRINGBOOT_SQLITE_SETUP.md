@@ -7,10 +7,11 @@ Füge die folgenden Abhängigkeiten in deine `pom.xml` ein:
     <groupId>org.xerial</groupId>
     <artifactId>sqlite-jdbc</artifactId>
     <version>3.45.3.0</version>
-</dependency>
+    </dependency>
 <dependency>
-    <groupId>org.flywaydb</groupId>
-    <artifactId>flyway-core</artifactId>
+    <groupId>com.github.gwenn</groupId>
+    <artifactId>sqlite-dialect</artifactId>
+    <version>0.1.2</version>
 </dependency>
 ```
 
@@ -25,11 +26,7 @@ spring.jpa.database-platform=org.sqlite.hibernate.dialect.SQLiteDialect
 spring.jpa.hibernate.ddl-auto=none
 spring.jpa.show-sql=true
 
-# Flyway Migrationen
-spring.flyway.enabled=true
-spring.flyway.locations=filesystem:db/migration
+# Schema-Initialisierung
+# Spring führt beim Start `schema.sql` in `src/main/resources` aus
 ```
-
-Lege die Migrationen im Ordner `backend/db/migration` ab.
-
-Hinweis: Für SQLite ist ein spezieller Dialekt nötig. Nutze z. B. [github.com/gwenn/sqlite-dialect](https://github.com/gwenn/sqlite-dialect) oder eine eigene Implementierung, da Hibernate keinen offiziellen SQLite-Dialekt mitliefert.
+Hinweis: Für SQLite ist ein spezieller Dialekt nötig. Nutze z. B. [github.com/gwenn/sqlite-dialect](https://github.com/gwenn/sqlite-dialect), da Hibernate keinen offiziellen SQLite-Dialekt mitliefert.

@@ -90,9 +90,16 @@ export default function CalendarBoard({ entries=[], absences=[], onDayClick=()=>
           const key = d.toISOString().slice(0,10);
           const segs = absenceSegments.get(key) || [];
           const tiles = entryTiles.get(key) || [];
+          // Markiere heute und gewählten Tag
+          const today = isSameDay(d, new Date());
+          // selectedDay wird als prop übergeben, für DateField kann man das noch nachrüsten
+          let dayClass = "cal-daynum";
+          if (today) dayClass += " today";
+          // selected-Logik: für DateField kann man selectedDay als prop übergeben, hier nur Demo
+          // if (selectedDay && isSameDay(d, selectedDay)) dayClass += " selected";
           return (
             <div key={idx} className={`cal-cell ${inMonth?'':'cal-cell-dim'}`}>
-              <button className="cal-daynum" onClick={()=>onDayClick(new Date(d))} title="Neuen Eintrag für diesen Tag beginnen">{d.getDate()}</button>
+              <button className={dayClass} onClick={()=>onDayClick(new Date(d))} title="Neuen Eintrag für diesen Tag beginnen">{d.getDate()}</button>
               <div className="cal-absences">
         {segs.map((s,i)=> (
                   <div

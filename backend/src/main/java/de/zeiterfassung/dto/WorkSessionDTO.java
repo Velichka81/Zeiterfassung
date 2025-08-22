@@ -14,9 +14,8 @@ public class WorkSessionDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String status;
-    private Long projectId;
 
-    public WorkSessionDTO(Long id, Long userId, String username, String imageUrl, LocalDateTime startTime, LocalDateTime endTime, int pauseSeconds, boolean pauseActive, LocalDateTime createdAt, LocalDateTime updatedAt, String status, Long projectId) {
+    public WorkSessionDTO(Long id, Long userId, String username, String imageUrl, LocalDateTime startTime, LocalDateTime endTime, int pauseSeconds, boolean pauseActive, LocalDateTime createdAt, LocalDateTime updatedAt, String status) {
         this.id = id;
         this.userId = userId;
         this.username = username;
@@ -28,7 +27,6 @@ public class WorkSessionDTO {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.status = status;
-        this.projectId = projectId;
     }
 
     public Long getId() { return id; }
@@ -42,5 +40,4 @@ public class WorkSessionDTO {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public String getStatus() { return status; }
-    public Long getProjectId() { return projectId; }
 }

@@ -10,12 +10,8 @@ C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\re
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\repository\AbsenceRepository.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\model\AuditLog.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\BackendApplication.java
-C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\repository\ProjectRepository.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\security\SecurityConfig.java
-C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\model\Project.java
-C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\repository\ProjectAssignmentRepository.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\repository\AuditLogRepository.java
-C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\model\ProjectAssignment.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\dto\WorkSessionDTO.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\persistence\LocalDateAttributeConverter.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\persistence\LocalDateTimeAttributeConverter.java
@@ -26,7 +22,6 @@ C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\se
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\controller\AllowanceController.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\repository\TimeEntryRepository.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\controller\OvertimeController.java
-C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\controller\ProjectController.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\model\WorkSession.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\security\JwtService.java
 C:\Users\Student\Desktop\Zeiterfassung\backend\src\main\java\de\zeiterfassung\repository\WorkSessionRepository.java

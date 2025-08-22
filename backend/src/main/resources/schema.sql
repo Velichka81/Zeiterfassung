@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS work_session (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
-    project_id INTEGER,
+    -- project_id entfernt
     start_time TEXT,
     end_time TEXT,
     pauseSeconds INTEGER DEFAULT 0,
@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS work_session (
     created_at TEXT,
     updated_at TEXT,
     status TEXT DEFAULT 'unbestätigt',
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (project_id) REFERENCES project(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    -- FOREIGN KEY (project_id) entfernt
 );
 
 -- AbsenceAllowance
@@ -54,11 +54,7 @@ CREATE TABLE IF NOT EXISTS users (
     role TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS project (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    description TEXT
-);
+-- Projekt-Tabellen entfernt
 
 CREATE TABLE IF NOT EXISTS time_entry (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

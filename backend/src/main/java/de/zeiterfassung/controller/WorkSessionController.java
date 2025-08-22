@@ -4,7 +4,6 @@ import de.zeiterfassung.model.WorkSession;
 import de.zeiterfassung.model.AppUser;
 import de.zeiterfassung.repository.WorkSessionRepository;
 import de.zeiterfassung.repository.UserRepository;
-import de.zeiterfassung.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,8 +28,7 @@ public class WorkSessionController {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private ProjectRepository projectRepository;
+    // Projekte entfernt: kein ProjectRepository mehr
 
     private AppUser requireCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -69,8 +67,7 @@ public class WorkSessionController {
                 ws.isPauseActive(),
                 ws.getCreatedAt(),
                 ws.getUpdatedAt(),
-                ws.getStatus(),
-                ws.getProject() != null ? ws.getProject().getId() : null
+                ws.getStatus()
             ))
             .collect(Collectors.toList());
     }
@@ -78,7 +75,7 @@ public class WorkSessionController {
 
     // User: Neue Session starten
     @PostMapping("/start")
-    public ResponseEntity<?> startSession(@RequestParam(value = "projectId", required = false) Long projectId) {
+    public ResponseEntity<?> startSession() {
         AppUser user = requireCurrentUser();
         // Verhindern, dass eine zweite laufende Session gestartet wird
         if (workSessionRepository.findFirstByUserIdAndEndTimeIsNullOrderByStartTimeDesc(user.getId()).isPresent()) {
@@ -89,9 +86,6 @@ public class WorkSessionController {
     ws.setStartTime(LocalDateTime.now());
     ws.setPauseSeconds(0);
     ws.setPauseActive(false); // Pausenstatus immer auf false beim Start
-    if (projectId != null) {
-        projectRepository.findById(projectId).ifPresent(ws::setProject);
-    }
     ws.setCreatedAt(LocalDateTime.now());
     ws.setUpdatedAt(LocalDateTime.now());
     workSessionRepository.save(ws);
