@@ -1,7 +1,3 @@
-
-    // ...existing code...
-
-
 package de.zeiterfassung.controller;
 
 import de.zeiterfassung.model.AppUser;

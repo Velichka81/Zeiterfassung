@@ -1,17 +1,14 @@
--- WorkSession
 CREATE TABLE IF NOT EXISTS work_session (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
-    -- project_id entfernt
     start_time TEXT,
     end_time TEXT,
-    pauseSeconds INTEGER DEFAULT 0,
-    pauseActive BOOLEAN DEFAULT 0,
+    pause_seconds INTEGER DEFAULT 0,
+    pause_active BOOLEAN DEFAULT 0,
     created_at TEXT,
     updated_at TEXT,
     status TEXT DEFAULT 'unbestätigt',
     FOREIGN KEY (user_id) REFERENCES users(id)
-    -- FOREIGN KEY (project_id) entfernt
 );
 
 -- AbsenceAllowance
@@ -51,7 +48,13 @@ CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
-    role TEXT NOT NULL
+    role TEXT NOT NULL,
+    locked INTEGER DEFAULT 0,
+    image_url TEXT,
+    work_model TEXT,
+    weekly_hours_minutes INTEGER,
+    regular_days TEXT,
+    regular_time TEXT
 );
 
 -- Projekt-Tabellen entfernt
@@ -72,6 +75,10 @@ CREATE TABLE IF NOT EXISTS absence (
     start_date TEXT NOT NULL,
     end_date TEXT NOT NULL,
     type TEXT NOT NULL,
-    reason TEXT,
+    note TEXT,
+    has_atest INTEGER DEFAULT 0,
+    status TEXT,
+    approved_by TEXT,
+    approved_at TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

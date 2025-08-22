@@ -23,7 +23,9 @@ public class WorkSession {
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     @Column(name = "end_time")
     private LocalDateTime endTime;
+    @Column(name = "pause_seconds")
     private int pauseSeconds;
+    @Column(name = "pause_active")
     private boolean pauseActive = false;
     public boolean isPauseActive() { return pauseActive; }
     public void setPauseActive(boolean pauseActive) { this.pauseActive = pauseActive; }

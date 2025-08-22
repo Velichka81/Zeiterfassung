@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -73,12 +74,12 @@ public class AuthController {
         var claims = jwt.parse(authz.substring(7));
         String username = claims.getSubject();
         AppUser u = users.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
-        return Map.of(
-                "username", u.getUsername(),
-                "role", u.getRole(),
-                "user_id", u.getId(),
-                "imageUrl", u.getImageUrl()
-        );
+        Map<String,Object> m = new HashMap<>();
+        m.put("username", u.getUsername());
+        m.put("role", u.getRole());
+        m.put("user_id", u.getId());
+        m.put("imageUrl", u.getImageUrl());
+        return m;
     }
 
     @Bean

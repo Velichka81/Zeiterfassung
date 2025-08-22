@@ -40,13 +40,11 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.45.3.0</version>
         </dependency>
-    <!-- Flyway entfernt -->
         <dependency>
             <groupId>com.github.gwenn</groupId>
             <artifactId>sqlite-dialect</artifactId>
             <version>0.1.2</version>
         </dependency>
-    <!-- Lombok entfernt: nicht genutzt -->
         <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -65,7 +63,6 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-    <!-- spring-boot-starter-test entfernt: keine Testklassen -->
     </dependencies>
     <build>
         <plugins>
