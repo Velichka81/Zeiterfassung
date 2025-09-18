@@ -6,9 +6,7 @@ import de.zeiterfassung.security.JwtService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+// imports bereinigt
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,10 +21,10 @@ public class AuthController {
     private final UserRepository users;
     private final PasswordEncoder encoder;
     private final JwtService jwt;
-    private final AuthenticationManager authManager;
+    // entfernt: authManager war ungenutzt
 
-    public AuthController(UserRepository users, PasswordEncoder encoder, JwtService jwt, AuthenticationManager authManager) {
-        this.users = users; this.encoder = encoder; this.jwt = jwt; this.authManager = authManager;
+    public AuthController(UserRepository users, PasswordEncoder encoder, JwtService jwt) {
+        this.users = users; this.encoder = encoder; this.jwt = jwt;
     }
 
     @PostMapping("/register")
@@ -52,19 +50,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody Map<String, String> body) {
-        String username = body.getOrDefault("username", "");
+        String username = body.getOrDefault("username", "").trim();
         String password = body.getOrDefault("password", "");
-        Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        if (!auth.isAuthenticated()) {
+        AppUser u = users.findByUsernameIgnoreCase(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login fehlgeschlagen"));
+        if (u.isLocked()) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Konto gesperrt");
+        if (!encoder.matches(password, u.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Login fehlgeschlagen");
         }
-        AppUser u = users.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
         String token = jwt.createToken(u.getUsername(), u.getRole());
         return Map.of(
-            "token", token,
-            "username", u.getUsername(),
-            "role", u.getRole(),
-            "user_id", u.getId()
+                "token", token,
+                "username", u.getUsername(),
+                "role", u.getRole(),
+                "user_id", u.getId()
         );
     }
 

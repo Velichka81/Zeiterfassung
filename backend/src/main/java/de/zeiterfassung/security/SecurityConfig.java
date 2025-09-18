@@ -13,9 +13,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -26,13 +30,13 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserRepository users) {
-        return username -> users.findByUsername(username)
+    return username -> users.findByUsernameIgnoreCase(username)
                 .map(u -> User.withUsername(u.getUsername())
                         .password(u.getPassword())
                         .roles(u.getRole())
                         .accountLocked(u.isLocked())
                         .build())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Bean
@@ -50,7 +54,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtFilter) throws Exception {
-        http.csrf().disable();
+    http.csrf().disable();
+    http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -61,5 +66,17 @@ public class SecurityConfig {
             .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration cfg = new CorsConfiguration();
+        cfg.addAllowedOriginPattern("*");
+        cfg.addAllowedHeader("*");
+        cfg.addAllowedMethod("*");
+        cfg.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cfg);
+        return source;
     }
 }
